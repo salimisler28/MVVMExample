@@ -1,7 +1,6 @@
 # MVVMExample
 
 I wanted to show you how i apply MVVM pattern in my projects with 3rd party lbraries
-an approach for mvvm pattern with Hilt, Retrofit, Room, Coroutines, Navigation Component, Airbnb Epoxy
 
 ## 3rd Party Libraries
 
