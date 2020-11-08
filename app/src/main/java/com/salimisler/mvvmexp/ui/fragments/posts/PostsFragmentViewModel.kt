@@ -13,7 +13,8 @@ class PostsFragmentViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     private val postData = serviceRepo.getPosts()
     private val storyData = serviceRepo.getStories()
-    private val storyStatusData = createStoryData()
+    private val storyStatusData = createStoryStatusData()
+    private val postCommentData = createPostCommentData()
 
     fun getPostsData(): LiveData<Resource<List<ServicePost>>> {
         return postData
@@ -27,7 +28,20 @@ class PostsFragmentViewModel @ViewModelInject constructor(
         return storyStatusData
     }
 
-    private fun createStoryData(): MutableList<StoryStatus> {
+    fun getPostCommentData(): List<PostComment> {
+        return postCommentData
+    }
+
+    fun updateStoryStatusData(id: Int) {
+        for (item in storyStatusData) {
+            if (item.id == id) {
+                item.seen = true
+                break
+            }
+        }
+    }
+
+    private fun createStoryStatusData(): MutableList<StoryStatus> {
         val list = mutableListOf<StoryStatus>()
 
         val id1 = StoryStatus(
@@ -58,17 +72,44 @@ class PostsFragmentViewModel @ViewModelInject constructor(
         return list
     }
 
-    fun updateStoryStatusData(id: Int) {
-        for (item in storyStatusData) {
-            if (item.id == id) {
-                item.seen = true
-                break
-            }
-        }
+    private fun createPostCommentData(): MutableList<PostComment> {
+        val list = mutableListOf<PostComment>()
+
+        val id1 = PostComment(
+            1,
+            3
+        )
+        val id2 = PostComment(
+            2,
+            1
+        )
+        val id3 = PostComment(
+            3,
+            61
+        )
+        val id4 = PostComment(
+            4,
+            28
+        )
+        val id5 = PostComment(
+            5,
+            3
+        )
+        list.add(id1)
+        list.add(id2)
+        list.add(id3)
+        list.add(id4)
+        list.add(id5)
+        return list
     }
 }
 
 data class StoryStatus(
     var id: Int,
     var seen: Boolean
+)
+
+data class PostComment(
+    var id: Int,
+    var commentCount: Int
 )

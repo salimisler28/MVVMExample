@@ -11,8 +11,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.salimisler.mvvmexp.R
-import com.salimisler.mvvmexp.app.entities.serviceentities.ServicePost
-import com.salimisler.mvvmexp.app.entities.serviceentities.ServiceStory
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewPost
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewStory
 import com.salimisler.mvvmexp.ui.activities.story.StoryActivity
@@ -82,6 +80,10 @@ class PostsFragment : Fragment(),
         storiesController.listener = listener
     }
 
+    override fun setStoryProgressBarVisibility(value: Boolean) {
+        postsController.storyProgressBarVisibility = value
+    }
+
     override fun setPostData(data: List<ViewPost>) {
         postsController.postData = data
     }
@@ -92,6 +94,10 @@ class PostsFragment : Fragment(),
 
     override fun setStoryStatusData(data: List<StoryStatus>) {
         storiesController.storyStatusData = data
+    }
+
+    override fun setPostCommentData(data: List<PostComment>) {
+        postsController.commentCountData = data
     }
 
     override fun startStoryActivity(story: ViewStory) {

@@ -9,7 +9,6 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.salimisler.mvvmexp.R
-import com.salimisler.mvvmexp.app.entities.serviceentities.ServicePost
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewPost
 import com.salimisler.mvvmexp.ui.fragments.posts.PostsListener
 import kotlinx.android.synthetic.main.item_posts_post.view.*
@@ -22,22 +21,26 @@ abstract class PostItem : EpoxyModelWithHolder<PostItem.ViewHolder>() {
     @EpoxyAttribute
     var post: ViewPost? = null
 
+    @EpoxyAttribute
+    var commentCount: String? = null
+
     override fun bind(holder: ViewHolder) {
         super.bind(holder)
         holder.apply {
             Glide.with(img_source)
-                .load(post)
+                .load(post?.sourceImageUrl)
                 .into(img_source)
 
-            //tx_source.text = post?
-            //tx_kind.text = post?.kind
+            tx_source.text = post?.source
+            tx_kind.text = post?.kind
 
             Glide.with(img_header)
-                .load(post)
+                .load(post?.postImageUrl)
                 .into(img_header)
 
             tx_header.text = post?.title
             tx_body.text = post?.body
+            tx_comment_count.text = commentCount
         }
     }
 
@@ -48,6 +51,7 @@ abstract class PostItem : EpoxyModelWithHolder<PostItem.ViewHolder>() {
         lateinit var img_header: ImageView
         lateinit var tx_header: TextView
         lateinit var tx_body: TextView
+        lateinit var tx_comment_count: TextView
 
         override fun bindView(itemView: View) {
             img_source = itemView.img_source
@@ -56,6 +60,7 @@ abstract class PostItem : EpoxyModelWithHolder<PostItem.ViewHolder>() {
             img_header = itemView.img_header
             tx_header = itemView.tx_header
             tx_body = itemView.tx_body
+            tx_comment_count = itemView.tx_comment_count
         }
     }
 

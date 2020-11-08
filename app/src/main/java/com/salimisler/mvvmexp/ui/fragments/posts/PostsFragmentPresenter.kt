@@ -2,6 +2,7 @@ package com.salimisler.mvvmexp.ui.fragments.posts
 
 import androidx.lifecycle.Observer
 import com.salimisler.mvvmexp.R
+import com.salimisler.mvvmexp.app.entities.toViewPost
 import com.salimisler.mvvmexp.app.entities.toViewStory
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewStory
 import com.salimisler.mvvmexp.app.utils.Resource
@@ -29,6 +30,9 @@ class PostsFragmentPresenter : PostsFragmentContract.Presenter {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
                     it.data?.let {
+                        view.setPostData(it.toViewPost())
+                        view.setPostCommentData(viewModel.getPostCommentData())
+                        view.requestModelBuildForPosts()
                     }
                 }
 
@@ -45,6 +49,7 @@ class PostsFragmentPresenter : PostsFragmentContract.Presenter {
         viewModel.getStoryData().observe(view as PostsFragment, Observer {
             when (it.status) {
                 Resource.Status.SUCCESS -> {
+                    view.setStoryProgressBarVisibility(false)
                     it.data?.let {
                         view.setStoryData(it.toViewStory())
                         view.setStoryStatusData(viewModel.getStoryStatusData())
@@ -54,16 +59,14 @@ class PostsFragmentPresenter : PostsFragmentContract.Presenter {
                 }
 
                 Resource.Status.LOADING -> {
-
+                    view.setStoryProgressBarVisibility(true)
                 }
 
                 Resource.Status.ERROR -> {
-
+                    view.setStoryProgressBarVisibility(false)
                 }
             }
         })
-
-
     }
 
     override fun setOnStoryItemClickListener(story: ViewStory?) {

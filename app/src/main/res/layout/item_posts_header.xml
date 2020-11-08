@@ -5,16 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="150dp">
 
+
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/erv_stories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
+        app:layout_constraintVertical_bias="1.0"
+        android:visibility="gone"
         tools:listitem="@layout/item_posts_story" />
+
+    <ProgressBar
+        android:id="@+id/pb_stories"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/erv_stories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

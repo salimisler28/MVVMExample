@@ -16,9 +16,12 @@ interface PostsFragmentContract {
 
         fun setContext(context: Context)
         fun setListener(listener: PostsListener)
+
+        fun setStoryProgressBarVisibility(value: Boolean)
         fun setPostData(data: List<ViewPost>)
         fun setStoryData(data: List<ViewStory>)
         fun setStoryStatusData(data: List<StoryStatus>)
+        fun setPostCommentData(data: List<PostComment>)
 
         fun startStoryActivity(story: ViewStory)
     }
