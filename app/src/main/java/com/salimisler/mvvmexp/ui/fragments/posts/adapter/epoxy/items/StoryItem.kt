@@ -33,6 +33,7 @@ abstract class StoryItem : EpoxyModelWithHolder<StoryItem.ViewHolder>() {
                 .into(img_story)
 
             cl_story.setBackgroundResource(backgroundResource!!)
+            tx_story.text = story?.id.toString()
 
             img_story.setOnClickListener {
                 listener?.setOnStoryItemClickListener(story)

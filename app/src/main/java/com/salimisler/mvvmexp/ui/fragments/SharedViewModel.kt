@@ -1,7 +1,8 @@
-package com.salimisler.mvvmexp.ui.fragments.posts
+package com.salimisler.mvvmexp.ui.fragments
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.salimisler.mvvmexp.app.entities.serviceentities.ServicePost
 import com.salimisler.mvvmexp.app.entities.serviceentities.ServiceStory
@@ -13,8 +14,11 @@ class PostsFragmentViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     private val postData = serviceRepo.getPosts()
     private val storyData = serviceRepo.getStories()
+    var list: MutableLiveData<MutableList<StoryStatus>> = MutableLiveData()
     private val storyStatusData = createStoryStatusData()
     private val postCommentData = createPostCommentData()
+
+
 
     fun getPostsData(): LiveData<Resource<List<ServicePost>>> {
         return postData
@@ -24,7 +28,7 @@ class PostsFragmentViewModel @ViewModelInject constructor(
         return storyData
     }
 
-    fun getStoryStatusData(): List<StoryStatus> {
+    fun getStoryStatusData(): LiveData<MutableList<StoryStatus>> {
         return storyStatusData
     }
 
@@ -33,16 +37,19 @@ class PostsFragmentViewModel @ViewModelInject constructor(
     }
 
     fun updateStoryStatusData(id: Int) {
-        for (item in storyStatusData) {
+        val new = StoryStatus(id, true)
+        val list = storyStatusData.value!!
+        for (item in list) {
             if (item.id == id) {
-                item.seen = true
+                list.remove(item)
+                list.add(new)
                 break
             }
         }
+        storyStatusData.value = list
     }
 
-    private fun createStoryStatusData(): MutableList<StoryStatus> {
-        val list = mutableListOf<StoryStatus>()
+    private fun createStoryStatusData(): MutableLiveData<MutableList<StoryStatus>> {
 
         val id1 = StoryStatus(
             1,
@@ -64,11 +71,13 @@ class PostsFragmentViewModel @ViewModelInject constructor(
             5,
             false
         )
-        list.add(id1)
-        list.add(id2)
-        list.add(id3)
-        list.add(id4)
-        list.add(id5)
+
+        list.value = mutableListOf()
+        list.value?.add(id1)
+        list.value?.add(id2)
+        list.value?.add(id3)
+        list.value?.add(id4)
+        list.value?.add(id5)
         return list
     }
 

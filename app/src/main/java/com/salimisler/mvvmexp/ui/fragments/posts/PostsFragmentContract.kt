@@ -3,6 +3,9 @@ package com.salimisler.mvvmexp.ui.fragments.posts
 import android.content.Context
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewPost
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewStory
+import com.salimisler.mvvmexp.ui.fragments.PostComment
+import com.salimisler.mvvmexp.ui.fragments.PostsFragmentViewModel
+import com.salimisler.mvvmexp.ui.fragments.StoryStatus
 
 interface PostsFragmentContract {
     interface View {
@@ -23,7 +26,7 @@ interface PostsFragmentContract {
         fun setStoryStatusData(data: List<StoryStatus>)
         fun setPostCommentData(data: List<PostComment>)
 
-        fun startStoryActivity(story: ViewStory)
+        fun startStoryFragment()
     }
 
     interface Presenter : PostsListener {

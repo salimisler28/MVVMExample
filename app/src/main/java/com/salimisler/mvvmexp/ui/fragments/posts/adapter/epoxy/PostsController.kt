@@ -4,7 +4,7 @@ import android.content.Context
 import com.airbnb.epoxy.EpoxyController
 import com.salimisler.mvvmexp.app.base.items.verticalSpaceItem
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewPost
-import com.salimisler.mvvmexp.ui.fragments.posts.PostComment
+import com.salimisler.mvvmexp.ui.fragments.PostComment
 import com.salimisler.mvvmexp.ui.fragments.posts.PostsListener
 import com.salimisler.mvvmexp.ui.fragments.posts.adapter.epoxy.items.headerItem
 import com.salimisler.mvvmexp.ui.fragments.posts.adapter.epoxy.items.postItem

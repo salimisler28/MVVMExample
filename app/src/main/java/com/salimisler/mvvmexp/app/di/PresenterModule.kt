@@ -17,4 +17,5 @@ object PresenterModule {
     @Provides
     fun providePostsFragmentPresenter() =
         PostsFragmentPresenter()
+
 }

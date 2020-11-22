@@ -1,19 +1,21 @@
 package com.salimisler.mvvmexp.ui.fragments.posts
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.salimisler.mvvmexp.R
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewPost
 import com.salimisler.mvvmexp.app.entities.viewentities.ViewStory
-import com.salimisler.mvvmexp.ui.activities.story.StoryActivity
+import com.salimisler.mvvmexp.ui.fragments.PostComment
+import com.salimisler.mvvmexp.ui.fragments.PostsFragmentViewModel
+import com.salimisler.mvvmexp.ui.fragments.StoryStatus
 import com.salimisler.mvvmexp.ui.fragments.posts.adapter.epoxy.PostsController
 import com.salimisler.mvvmexp.ui.fragments.posts.adapter.epoxy.StoriesController
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +25,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PostsFragment : Fragment(),
     PostsFragmentContract.View {
-    private val postsFragmentViewModel: PostsFragmentViewModel by viewModels()
+    private val postsFragmentViewModel: PostsFragmentViewModel by activityViewModels()
 
     @Inject
     lateinit var presenter: PostsFragmentPresenter
@@ -100,10 +102,7 @@ class PostsFragment : Fragment(),
         postsController.commentCountData = data
     }
 
-    override fun startStoryActivity(story: ViewStory) {
-        val intent = Intent(this.requireActivity(), StoryActivity::class.java)
-        // here could be done with gson
-        intent.putExtra("storyId", story.id)
-        this.requireActivity().startActivity(intent)
+    override fun startStoryFragment() {
+        findNavController().navigate(R.id.action_postsFragment_to_storyFragment)
     }
 }
